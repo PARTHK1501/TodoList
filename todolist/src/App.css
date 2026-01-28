@@ -1,0 +1,127 @@
+/* Adding a modern background to the body for contrast */
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+h2 {
+  color: #2d3436;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* --- Create Form Styles --- */
+.create_form {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 0; /* Keeps them joined */
+}
+
+.create_form input {
+  width: 300px;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.create_form input:focus {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.create_form button {
+  padding: 10px 20px;
+  background-color: #6c5ce7; /* Creative Purple */
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.create_form button:hover {
+  background-color: #a29bfe;
+  transform: translateY(-1px);
+}
+
+.create_form button:active {
+  transform: translateY(1px);
+}
+
+/* --- Task Item Styles & Animations --- */
+.task {
+  display: flex;
+  align-items: center;
+  width: 380px;
+  justify-content: space-between;
+  background-color: white; /* Glassmorphism start */
+  color: #2d3436;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  
+  /* Entrance Animation */
+  animation: slideIn 0.4s ease forwards;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox .icon {
+  margin-right: 12px;
+  font-size: 18px;
+  color: #6c5ce7;
+  transition: transform 0.3s ease;
+}
+
+.checkbox:hover .icon {
+  transform: scale(1.2);
+}
+
+/* --- Text Strike-through Animation --- */
+.line_through {
+  text-decoration: line-through;
+  color: #b2bec3;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+/* --- Delete Icon Style --- */
+.task div .icon {
+  cursor: pointer;
+  color: #fab1a0; /* Soft Red */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.task div .icon:hover {
+  color: #ff7675; /* Vibrant Red */
+  transform: rotate(15deg);
+}
