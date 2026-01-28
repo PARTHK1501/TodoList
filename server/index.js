@@ -2,12 +2,17 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const TodoModel = require('./Models/Todo')
+require('dotenv').config()
 
 const app=express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/toDoList')
+const mongodbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/toDoList'
+mongoose.connect(mongodbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).catch(err => console.error('MongoDB connection error:', err))
 
 app.get('/get',(req,res)=>{
     TodoModel.find()
@@ -41,6 +46,9 @@ app.delete('/delete/:id', (req, res) => {
         .catch(err => res.json(err));
 });
 
-app.listen(3001,()=>{
-    console.log("Server is Running");
+const port = process.env.PORT || 3001
+app.listen(port,()=>{
+    console.log(`Server is Running on port ${port}`);
 });
+
+module.exports = app;
