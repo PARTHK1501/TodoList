@@ -10,11 +10,17 @@ const Home = () => {
     const fetchTodos = () => {
         axios.get('https://todo-list-gamma-lyart-80.vercel.app/get')
             .then(result => {
-                // result.data contains the array of todos from MongoDB
-                setTodos(result.data);
+                // Ensure result.data is an array
+                if (Array.isArray(result.data)) {
+                    setTodos(result.data);
+                } else {
+                    console.error("Invalid data format:", result.data);
+                    setTodos([]);
+                }
             })
             .catch(err => {
                 console.error("Error fetching data: ", err);
+                setTodos([]);
             });
     }
 
@@ -23,10 +29,9 @@ const Home = () => {
     }, [refresh])
 
     const handleEdit = (id) => {
-        // Added the missing '/' before id
         axios.put('https://todo-list-gamma-lyart-80.vercel.app/update/' + id)
             .then(result => {
-                fetchTodos(result); // Refresh list after update
+                setRefresh(!refresh); // Refresh list after update
             })
             .catch(err => console.log(err))
     }
@@ -34,7 +39,7 @@ const Home = () => {
     const handleDelete = (id) => {
         axios.delete('https://todo-list-gamma-lyart-80.vercel.app/delete/' + id)
             .then(result => {
-                fetchTodos(result); // Refresh list after delete
+                setRefresh(!refresh); // Refresh list after delete
             })
             .catch(err => console.log(err))
     }
@@ -43,9 +48,9 @@ const Home = () => {
         <div className="home">
             <h2>Todo List</h2>
             <Create onTaskAdded={() => setRefresh(!refresh)} />
-            {todos.length === 0 ?
+            {Array.isArray(todos) && todos.length === 0 ?
                 <div><h2>No Records</h2></div> :
-                todos.map(todo => (
+                Array.isArray(todos) && todos.map(todo => (
                     <div className="task" key={todo._id}>
                         <div className="checkbox" onClick={() => handleEdit(todo._id)}>
                             {todo.done ?
