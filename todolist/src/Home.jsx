@@ -7,7 +7,7 @@ const Home = () => {
     const [todos, setTodos] = useState([]);
 
     const fetchTodos = () => {
-        axios.get('http://localhost:3001/get')
+        axios.get('https://todo-list-gamma-lyart-80.vercel.app/get')
             .then(result => {
                 // result.data contains the array of todos from MongoDB
                 setTodos(result.data);
@@ -23,7 +23,7 @@ const Home = () => {
 
     const handleEdit = (id) => {
         // Added the missing '/' before id
-        axios.put('http://localhost:3001/update/' + id)
+        axios.put('https://todo-list-gamma-lyart-80.vercel.app/update/' + id)
             .then(result => {
                 fetchTodos(result); // Refresh list after update
             })
@@ -31,7 +31,7 @@ const Home = () => {
     }
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3001/delete/' + id)
+        axios.delete('https://todo-list-gamma-lyart-80.vercel.app/delete/' + id)
             .then(result => {
                 fetchTodos(result); // Refresh list after delete
             })
