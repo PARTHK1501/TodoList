@@ -5,6 +5,7 @@ import { BsCircleFill, BsFillCheckCircleFill, BsFillTrashFill } from 'react-icon
 
 const Home = () => {
     const [todos, setTodos] = useState([]);
+    const [refresh, setRefresh] = useState(false);
 
     const fetchTodos = () => {
         axios.get('https://todo-list-gamma-lyart-80.vercel.app/get')
@@ -19,7 +20,7 @@ const Home = () => {
 
     useEffect(() => {
         fetchTodos();
-    }, [todos])
+    }, [refresh])
 
     const handleEdit = (id) => {
         // Added the missing '/' before id
@@ -41,7 +42,7 @@ const Home = () => {
     return (
         <div className="home">
             <h2>Todo List</h2>
-            <Create />
+            <Create onTaskAdded={() => setRefresh(!refresh)} />
             {todos.length === 0 ?
                 <div><h2>No Records</h2></div> :
                 todos.map(todo => (
