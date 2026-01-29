@@ -5,7 +5,13 @@ const TodoModel = require('./Models/Todo')
 require('dotenv').config()
 
 const app=express()
-app.use(cors())
+
+// CORS Configuration
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000').split(',')
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}))
 app.use(express.json())
 
 const mongodbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/toDoList'
