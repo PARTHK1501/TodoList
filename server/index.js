@@ -14,6 +14,11 @@ mongoose.connect(mongodbURI, {
     useUnifiedTopology: true
 }).catch(err => console.error('MongoDB connection error:', err))
 
+// Root route - Health check
+app.get('/', (req, res) => {
+    res.json({ message: "Todo List API is running", status: "success" })
+})
+
 app.get('/get',(req,res)=>{
     TodoModel.find()
     .then(result=>res.json(result))
